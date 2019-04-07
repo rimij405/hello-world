@@ -1,5 +1,5 @@
 [Activity]
-name = Name
+name = Airport Simulator 2019
 activity_version = 1
 bundle_id = org.hfoss.AirportSim
 exec = sugar-activity activity.MainActivity
