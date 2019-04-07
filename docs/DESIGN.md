@@ -60,8 +60,6 @@ Logo - Assets from [Pixabay](https://pixabay.com).
 
 ### Music / Sound ###
 
-
-
 ## Development Roadmap ##
 
 Platform: Sugar / XO OLPC
