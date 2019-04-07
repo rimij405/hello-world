@@ -1,8 +1,8 @@
 [Activity]
-name = HelloWorld
-activity_version = 6
-bundle_id = org.sugarlabs.HelloWorld
-exec = sugar-activity activity.HelloWorldActivity
+name = Name
+activity_version = 1
+bundle_id = org.hfoss.AirportSim
+exec = sugar-activity activity.MainActivity
 icon = activity-helloworld
 license = GPLv2+
-repository = https://github.com/sugarlabs/hello-world-fork.git
+repository = git@github.com:rimij405/hfoss-final-2019.git

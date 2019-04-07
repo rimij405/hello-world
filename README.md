@@ -1,8 +1,14 @@
-## Sugar Hello World Example
+# Airport Simulator 2019
 
-This is an example Sugar Desktop Activity, that follows the "Hello World" tradition of being a small and simple demonstration of a complete program for a system. 
+**Airport Simulator 2019** is a game designed to reinforce math skills in
+fourth graders. It's made up of multiple minigames, each of which focuses on a
+single skill:
 
-## Other Examples
+* > **TODO** List minigames, with what skills they test
+* Baggage weight thing?
+* ...pizza?
 
-* https://github.com/erilyth/Hello-World-Python_Sugar
-* [Your example here?]
+## License
+
+Airport Simulator 2019 is licensed under GPLv2. The full license text is
+available in `COPYING`, or online [here](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
