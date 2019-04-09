@@ -16,6 +16,17 @@
 
 - [x] Assign mini-games / gameflow / other tasks to each person. Some may be in Unity. Others may be in Python. - Assigned to @jks7743 and @rimij405.
 
+## Date: 4/9/2019 ##
+
+- [x] Assign proof-of-concept tasks to team members.
+    - [x] @jks7743 - poc-suitcase-weight
+    - [x] @rimij405 - poc-suitcase-size
+    - [x] @nic-hartley - poc-sugar-skeleton
+
+- [x] Set up due date for proof-of-concept deliverables.
+
+- [x] Clarify submission process for proof-of-concepts.
+
 ## Date: Upcoming ##
 
 - [ ] Setup our development environments for Python, GTK, and PyGame. (If possible, create a docker container or ansible playbook that can automate this process for us and others). (est. ~30 minutes). Also Unity, if applicable.
