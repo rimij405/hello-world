@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="World" type="Node2D"]
+
+[node name="label_HelloWorld" type="RichTextLabel" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 152.0
+margin_bottom = 52.0
+rect_pivot_offset = Vector2( -0.182076, -0.133125 )
+text = "HELLO WORLD"
+
