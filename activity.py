@@ -16,11 +16,11 @@
 
 """HelloWorld Activity: A case study for developing an activity."""
 
+import threading
+
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
-
-from gettext import gettext as _
 
 from sugar3.activity import activity
 from sugar3.graphics.toolbarbox import ToolbarBox
@@ -30,10 +30,13 @@ from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ShareButton
 from sugar3.activity.widgets import DescriptionItem
 
+from demo_minigame import DemoMinigame
+
+MINIGAMES = [
+    DemoMinigame()
+]
 
 class HelloWorldActivity(activity.Activity):
-    """HelloWorldActivity class as specified in activity.info"""
-
     def __init__(self, handle):
         """Set up the HelloWorld activity."""
         activity.Activity.__init__(self, handle)
@@ -75,6 +78,35 @@ class HelloWorldActivity(activity.Activity):
         toolbar_box.show()
 
         # label with the text, make the string translatable
-        label = Gtk.Label(_("Hello World!"))
-        self.set_canvas(label)
-        label.show()
+        self.display_menu()
+
+    def display_menu(self):
+        grid = Gtk.Grid()
+        grid.set_hexpand(True)
+        grid.set_vexpand(True)
+        COLS = 3
+        l = Gtk.Label("Pick a minigame")
+        grid.attach(l, 0, 0, COLS, 1)
+        l.show()
+        for idx, mg in enumerate(MINIGAMES):
+            btn = Gtk.Button.new_with_label(mg.get_name())
+            btn.connect("clicked", lambda _: self.run_minigame(mg))
+            grid.attach(btn, idx % 3, 1 + idx / 3, 1, 1)
+            btn.show()
+        self.set_canvas(grid)
+        grid.show()
+
+    def run_minigame(self, mg):
+        cv = mg.get_panel()
+        cv.set_hexpand(True)
+        cv.set_vexpand(True)
+        self.set_canvas(cv)
+        cv.show_all()
+        
+        def runner():
+            mg.start(cv)
+            # start only completes when the minigame is done
+            self.display_menu()
+
+        threading.Thread(target=runner).start()
+
