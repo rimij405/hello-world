@@ -33,7 +33,7 @@ from sugar3.activity.widgets import DescriptionItem
 from demo_minigame import DemoMinigame
 
 MINIGAMES = [
-    DemoMinigame()
+    DemoMinigame(),
 ]
 
 class HelloWorldActivity(activity.Activity):

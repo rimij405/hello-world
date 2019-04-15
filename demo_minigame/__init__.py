@@ -10,12 +10,15 @@ class DemoMinigame:
     def __init__(self):
         """
         Initialize state variables, etc. GUI elements should be initialized
-        in get_panel.
+        in get_panel -- you can still set properties on `self` in any method.
         """
         self.score = 0
         self.return_start = threading.Event()
 
     def get_name(self):
+        """
+        This is the name of the app, as displayed in the main menu.
+        """
         return "A Demo"
 
     def get_panel(self):

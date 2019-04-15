@@ -1,18 +1,23 @@
 """
-This minigame shows the API to code against. It's not meant to be fun.
+A blank module, ready to be filled in. To see an example of it in use, see
+demo_minigame.
 """
-
-import threading
 
 from gi.repository import Gtk
 
 class DemoMinigame:
     def __init__(self):
-        self.score = 0
-        self.return_start = threading.Event()
+        """
+        Initialize state variables, etc. GUI elements should be initialized
+        in get_panel -- you can still set properties on `self` in any method.
+        """
+        pass
 
     def get_name(self):
-        return "A Demo"
+        """
+        This is the name of the app, as displayed in the main menu.
+        """
+        pass
 
     def get_panel(self):
         """
@@ -24,17 +29,7 @@ class DemoMinigame:
         This panel is shown with show_all, so you don't need to manually call
         .show() on every child element.
         """
-        panel = Gtk.Grid()
-        panel.attach(Gtk.Label("Demo"), 0, 0, 1, 1)
-        score_btn = Gtk.Button.new_with_label("Increase score")
-        score_btn.connect("clicked", self.score_up)
-        panel.attach(score_btn, 0, 1, 1, 1)
-        self.score_lbl = Gtk.Label("Increase your score!")
-        panel.attach(self.score_lbl, 0, 2, 1, 1)
-        quit_btn = Gtk.Button.new_with_label("Quit")
-        quit_btn.connect("clicked", self.done)
-        panel.attach(quit_btn, 0, 3, 1, 1)
-        return panel
+        pass
 
     def start(self, panel):
         """
@@ -44,14 +39,5 @@ class DemoMinigame:
         Takes the panel returned by get_panel(), after it's been slotted into
         the GUI.
         """
-        # in this case, use a threading.Event so we can efficiently wait for
-        # something that happens in a callback (quit clicked)
-        self.return_start.wait()
-
-    def score_up(self, _):
-        self.score += 1
-        self.score_lbl.set_text(str(self.score))
-
-    def done(self, _):
-        self.return_start.set()
+        pass
 
