@@ -34,6 +34,11 @@ from demo_minigame import DemoMinigame
 
 MINIGAMES = [
     DemoMinigame(),
+    DemoMinigame(),
+    DemoMinigame(),
+    DemoMinigame(),
+    DemoMinigame(),
+    DemoMinigame(),
 ]
 
 class HelloWorldActivity(activity.Activity):
@@ -82,24 +87,25 @@ class HelloWorldActivity(activity.Activity):
 
     def display_menu(self):
         grid = Gtk.Grid()
-        grid.set_hexpand(True)
-        grid.set_vexpand(True)
         COLS = 3
-        l = Gtk.Label("Pick a minigame")
+        l = Gtk.Label(None)
+        l.set_markup("<span font='20' weight='ultrabold'>Pick a minigame</span>")
         grid.attach(l, 0, 0, COLS, 1)
-        l.show()
         for idx, mg in enumerate(MINIGAMES):
             btn = Gtk.Button.new_with_label(mg.get_name())
             btn.connect("clicked", lambda _: self.run_minigame(mg))
             grid.attach(btn, idx % 3, 1 + idx / 3, 1, 1)
-            btn.show()
+        grid.set_margin_left(10)
+        grid.set_margin_right(10)
+        grid.set_margin_bottom(10)
+        grid.set_margin_top(10)
+        grid.set_column_spacing(10)
+        grid.set_row_spacing(10)
         self.set_canvas(grid)
-        grid.show()
+        grid.show_all()
 
     def run_minigame(self, mg):
         cv = mg.get_panel()
-        cv.set_hexpand(True)
-        cv.set_vexpand(True)
         self.set_canvas(cv)
         cv.show_all()
         
