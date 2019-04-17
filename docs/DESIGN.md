@@ -67,5 +67,5 @@ Audience: 4th Grade-Level Children (Ages: 9 ~ 10)
 
 Technology: Python, PyGame, GTK+
 
-Milestones:
-- Proof of Concepts due Sunday, April 14th, 2019
+Wireframe:
+![Image of wireframe for design.](WIREFRAME.png)
