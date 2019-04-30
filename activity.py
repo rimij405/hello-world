@@ -18,10 +18,12 @@
 
 import threading
 
+# Import the GTK libraires.
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
+# Import the sugar activity materials.
 from sugar3.activity import activity
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity.widgets import ActivityButton
@@ -30,8 +32,10 @@ from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ShareButton
 from sugar3.activity.widgets import DescriptionItem
 
+# Import the mini games.
 from demo_minigame import DemoMinigame
 
+# List of mini-games to create.
 MINIGAMES = [
     DemoMinigame(),
     DemoMinigame(),
@@ -86,25 +90,37 @@ class HelloWorldActivity(activity.Activity):
         self.display_menu()
 
     def display_menu(self):
-        grid = Gtk.Grid()
+        """Display a menu option for each mini game using GTK."""
+        
+        # Set up constants.
         COLS = 3
+
+        # Create the GTK objects.
+        grid = Gtk.Grid()
         l = Gtk.Label(None)
         l.set_markup("<span font='20' weight='ultrabold'>Pick a minigame</span>")
         grid.attach(l, 0, 0, COLS, 1)
+
+        # Create the buttons for each mini game.
         for idx, mg in enumerate(MINIGAMES):
             btn = Gtk.Button.new_with_label(mg.get_name())
             btn.connect("clicked", lambda _: self.run_minigame(mg))
             grid.attach(btn, idx % 3, 1 + idx / 3, 1, 1)
+
+        # Set the spacing for the grid.
         grid.set_margin_left(10)
         grid.set_margin_right(10)
         grid.set_margin_bottom(10)
         grid.set_margin_top(10)
         grid.set_column_spacing(10)
         grid.set_row_spacing(10)
+
+        # Show the grid.
         self.set_canvas(grid)
         grid.show_all()
 
     def run_minigame(self, mg):
+        """Start the mini game that was selected."""
         cv = mg.get_panel()
         self.set_canvas(cv)
         cv.show_all()
