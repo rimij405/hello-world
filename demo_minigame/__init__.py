@@ -53,6 +53,7 @@ class DemoMinigame:
         """
         # in this case, use a threading.Event so we can efficiently wait for
         # something that happens in a callback (quit clicked)
+        self.return_start.clear()
         self.return_start.wait()
 
     def score_up(self, _):
