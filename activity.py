@@ -34,10 +34,11 @@ from sugar3.activity.widgets import DescriptionItem
 
 # Import the mini games.
 from demo_minigame import DemoMinigame
+from weight_a_minute import WAMMinigame
 
 # List of mini-games to create.
 MINIGAMES = [
-    DemoMinigame(),
+    WAMMinigame(),
     DemoMinigame(),
     DemoMinigame(),
     DemoMinigame(),

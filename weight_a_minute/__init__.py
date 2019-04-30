@@ -1,23 +1,25 @@
 """
-A blank module, ready to be filled in. To see an example of it in use, see
-demo_minigame.
+Module containing code for the WAMMinigame.
 """
+
+import threading
 
 from gi.repository import Gtk
 
-class DemoMinigame:
+class WAMMinigame:
     def __init__(self):
         """
         Initialize state variables, etc. GUI elements should be initialized
         in get_panel -- you can still set properties on `self` in any method.
         """
-        pass
+        self.score = 0
+        self.return_start = threading.Event()
 
     def get_name(self):
         """
         This is the name of the app, as displayed in the main menu.
         """
-        pass
+        return "Weight A Minute!"
 
     def get_panel(self):
         """
@@ -29,7 +31,8 @@ class DemoMinigame:
         This panel is shown with show_all, so you don't need to manually call
         .show() on every child element.
         """
-        pass
+        panel = Gtk.Grid()
+        return panel
 
     def start(self, panel):
         """
@@ -39,5 +42,10 @@ class DemoMinigame:
         Takes the panel returned by get_panel(), after it's been slotted into
         the GUI.
         """
-        pass
+        
+        self.return_start.clear()
+        self.return_start.wait()
+
+    def done(self, _):
+        self.return_start.set()
 
