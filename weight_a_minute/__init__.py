@@ -5,6 +5,7 @@ Module containing code for the WAMMinigame.
 import threading
 
 from gi.repository import Gtk
+from weight_a_minute import model
 
 class WAMMinigame:
     def __init__(self):
@@ -13,7 +14,7 @@ class WAMMinigame:
         in get_panel -- you can still set properties on `self` in any method.
         """
         self.score = 0
-        self.state = None
+        self.fgame = model.WAMGameModel()
         self.return_start = threading.Event()
 
     def get_name(self):
@@ -46,24 +47,17 @@ class WAMMinigame:
         panel.set_row_spacing(10)
         """
 
-        # Create widgets.
-        self.minigame_label = Gtk.Label("Weight a minute!")
-        self.state_label = Gtk.Label("Current state: {st}".format(st=self.state))
+        # Create labels.
+        self.create_labels()
+        self.create_buttons()
         
-        self.state_button = Gtk.Button(label="Change State!")
-        self.state_button.connect("clicked", self.on_change_state_btn)
-        print("Creation of state change button.")
+        # Add labels to the panel.    
+        panel.add(self.labels["minigame"])
+        panel.add(self.labels["instructions"])
+        panel.add(self.labels["score"])
+        panel.add(self.buttons["quit"])
 
-        # self.prompt_label = Gtk.Label("Compare the generated fractions!")
-
-        # Add widgets.
-        panel.attach(self.minigame_label, 0, 0, 1, 1)
-        panel.attach_next_to(self.state_label, self.minigame_label, Gtk.PositionType.BOTTOM, 1, 1)
-        panel.add(self.state_button)
-        # panel.attach()
-
-        """
-        
+        """        
         score_btn = Gtk.Button.new_with_label("Increase scores")
         score_btn.connect("clicked", self.score_up)
         panel.attach(score_btn, 0, 1, 1, 1)
@@ -91,17 +85,30 @@ class WAMMinigame:
         self.score += 1
         # self.score_lbl.set_text(str(self.score))
 
-    def update_state(self):
-        self.state_label.set_text(self.state)
+    def increment_score(self, _):
+        self.score += 1
+        self.labels["score"].set_text("Score: {}".format(str(self.score)))
 
-    def on_change_state_btn(self, _):
-        if self.state is None:
-            self.state = "Start"
-        elif self.state == "Start":
-            self.state = "End"
-        elif self.state == "End":
-            self.state = "Start"
-        self.update_state()
+    def create_labels(self):
+        print("Create labels for game.")
+        self.labels = {}
+
+        self.labels["minigame"] = Gtk.Label("Weight a Minute!")
+        self.labels["instructions"] = Gtk.Label("Select all the fractions that are over the weight limit!")
+        self.labels["score"] = Gtk.Label("Score: {}".format(str(self.score)))
+
+        return self.labels
+
+    def create_buttons(self):
+        print("Create buttons for game.")
+        self.buttons = {}
+
+        btn_quit = Gtk.Button.new_with_label("Quit!")
+        btn_quit.connect("clicked", self.done)
+        self.buttons["quit"] = btn_quit
+
+        return self.buttons
+
 
     def done(self, _):
         self.return_start.set()
