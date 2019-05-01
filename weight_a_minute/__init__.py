@@ -208,5 +208,7 @@ class WAMMinigame:
         return "[{index}] {val}".format(index=idx, val=value)
 
     def done(self, _):
+        self.game.initialized = False
+        self.game.reset_score()
         self.return_start.set()
 
