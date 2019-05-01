@@ -41,7 +41,7 @@ class WAMMinigame:
         top_panel.add(Gtk.Label("Top."))
 
         # Create the separator.
-        separator = Gtk.Separator(Gtk.Orientation.HORIZONTAL)
+        separator = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
 
         # Create the bottom level widgets.
         bottom_panel = Gtk.Box()
