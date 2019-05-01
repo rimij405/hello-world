@@ -52,6 +52,7 @@ class WAMMinigame:
         
         self.state_button = Gtk.Button(label="Change State!")
         self.state_button.connect("clicked", self.on_change_state_btn)
+        print("Creation of state change button.")
 
         # self.prompt_label = Gtk.Label("Compare the generated fractions!")
 
@@ -98,6 +99,8 @@ class WAMMinigame:
             self.state = "Start"
         elif self.state == "Start":
             self.state = "End"
+        elif self.state == "End":
+            self.state = "Start"
         self.update_state()
 
     def done(self, _):
