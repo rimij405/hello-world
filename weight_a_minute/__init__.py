@@ -163,7 +163,7 @@ class WAMMinigame:
         return self.buttons
 
     def on_bag_select(self, *args):
-        value = args[0]
+        value = args[1]
         print("Selected bag with {}".format(value))
         check = self.game.check_bag(int(value))
         if(check == 0):
