@@ -43,7 +43,7 @@ MINIGAMES = [
     DemoMinigame(),
     DemoMinigame(),
     DemoMinigame(),
-    DemoMinigame(),
+    WAMMinigame(),
 ]
 
 class HelloWorldActivity(activity.Activity):
@@ -104,9 +104,10 @@ class HelloWorldActivity(activity.Activity):
 
         # Create the buttons for each mini game.
         for idx, mg in enumerate(MINIGAMES):
+            game = self
             print("Creating button {btnID} for {mgID}".format(btnID=str(idx), mgID=mg.get_name()))
             btn = Gtk.Button.new_with_label(mg.get_name())
-            btn.connect("clicked", lambda _: self.run_minigame(mg))
+            btn.connect("clicked", lambda _: game.run_minigame(mg)) # lambda _: self.run_minigame(mg))
             grid.attach(btn, idx % 3, 1 + idx / 3, 1, 1)
 
         # Set the spacing for the grid.
