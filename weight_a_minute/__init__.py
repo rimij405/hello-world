@@ -172,7 +172,15 @@ class WAMMinigame:
             self.game.result = "Try again, that bag isn't over the weight limit."
         if(check == 1):
             self.game.result = "Congratulations! You've found all of the bags! Quit to the main menu and return here to play again."
+        self.update_result()
+        self.update_remaining()
+
+    def update_result(self):
         self.labels["result"].set_text(self.game.result)
+
+    def update_remaining(self):
+        self.labels["bags"].set_text("Bags: {}".format(self.game.frac_list))
+        self.labels["remaining"].set_text("There are {} bag(s) left!".format(self.game.num_over))
 
     def done(self, _):
         self.return_start.set()
