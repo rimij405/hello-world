@@ -11,7 +11,7 @@ class Fraction:
     def __init__(self, numerator, denominator):
         self.numerator = numerator
         self.denominator = denominator
-        self.value = numerator / denominator
+        self.value = float(numerator) / float(denominator)
         print("Creating fraction: {n} / {d} ({v})".format(n=self.numerator, d=self.denominator, v=self.value))
         
 
