@@ -36,6 +36,13 @@ class WAMMinigame:
         # Create the main Grid.
         panel = Gtk.Grid()
 
+        panel.set_margin_left(10)
+        panel.set_margin_right(10)
+        panel.set_margin_bottom(10)
+        panel.set_margin_top(10)
+        panel.set_column_spacing(10)
+        panel.set_row_spacing(10)
+
         # Create the top level widgets.
         top_panel = Gtk.Box()
         top_panel.add(Gtk.Label("Top."))
