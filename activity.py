@@ -17,6 +17,7 @@
 """MainMenuActivity: The main menu of the game app."""
 
 import threading
+import json
 
 # Import and set up the GTK libraires.
 import gi
@@ -37,10 +38,10 @@ from demo_minigame import DemoMinigame
 from weight_a_minute import WAMMinigame
 
 # List of mini-games to create.
-MINIGAMES = [
-    WAMMinigame(),
-    DemoMinigame(),
-]
+MINIGAMES = {
+    "wam": WAMMinigame(),
+    "demo": DemoMinigame(),
+}
 
 class MainMenuActivity(activity.Activity):
     def __init__(self, handle):
@@ -98,7 +99,7 @@ class MainMenuActivity(activity.Activity):
         grid.attach(l, 0, 0, COLS, 1)
 
         # Create the buttons for each mini game.
-        for idx, mg in enumerate(MINIGAMES):
+        for idx, (_, mg) in enumerate(MINIGAMES.iteritems()):
             grid.attach(self.make_button(idx, mg), idx % 3, 1 + idx / 3, 1, 1)
 
         # Set the spacing for the grid.
@@ -134,4 +135,23 @@ class MainMenuActivity(activity.Activity):
 
         print("Starting thread for minigame '{mgn}'".format(mgn=mg.get_name()))
         threading.Thread(target=runner).start()
+
+    def read_file(self, filename):
+        with open(filename, 'r') as f:
+            data = json.load(f)
+        print("Loaded raw data {data}".format(data=data))
+        for game_key, val in data.iteritems():
+            game = MINIGAMES[game_key]
+            print("Loaded data for {key}: {data}".format(key=game_key, data=val))
+            if hasattr(game, 'load_save'):
+                game.load_save(val)
+
+    def write_file(self, filename):
+        data = {}
+        for game_key, game in MINIGAMES.iteritems():
+            if hasattr(game, 'get_save'):
+                data[game_key] = game.get_save()
+                print("Saving data for {key}: {data}".format(key=game_key, data=data[game_key]))
+        with open(filename, 'w') as f:
+            json.dump(data, f)
 

@@ -43,6 +43,12 @@ class DemoMinigame:
         panel.attach(quit_btn, 0, 3, 1, 1)
         return panel
 
+    def load_save(self, data):
+        self.score = data["score"]
+
+    def get_save(self):
+        return { "score": self.score }
+
     def start(self, panel):
         """
         Used to pass control to the minigame. Sort of a "main method". When
