@@ -92,10 +92,11 @@ class WAMMinigame:
 
         # Create the buttons.        
         for idx in range(0, len(self.game.frac_list)):
+            temp_label = self.get_bag_label(idx, self.game.frac_list[idx])
             if(idx == 0):
-                bottom_row.attach_next_to(self.buttons["bag-{}".format(idx)], self.labels["result"], Gtk.PositionType.BOTTOM, 1, 1)
+                bottom_row.attach_next_to(self.buttons[temp_label], self.labels["result"], Gtk.PositionType.BOTTOM, 1, 1)
             else:
-                bottom_row.attach_next_to(self.buttons["bag-{}".format(idx)], self.buttons["bag-{}".format(idx - 1)], Gtk.PositionType.BOTTOM, 1, 1)
+                bottom_row.attach_next_to(self.buttons[temp_label], self.buttons[self.get_bag_label(idx - 1, self.game.frac_list[idx - 1])], Gtk.PositionType.BOTTOM, 1, 1)
 
         """        
         score_btn = Gtk.Button.new_with_label("Increase scores")
@@ -154,7 +155,7 @@ class WAMMinigame:
 
         for idx in range(0, len(self.game.frac_list)):
             print("Creating bag-{}.".format(idx))
-            bag_label = "[{index}] {val}".format(index=idx, val=self.game.frac_list[idx])
+            bag_label = self.get_bag_label(idx, self.game.frac_list[idx])
             bag_value = idx
             bag_btn = create_fraction_button(bag_label)
             bag_btn.connect("clicked", self.on_bag_select, bag_value)
@@ -165,7 +166,7 @@ class WAMMinigame:
     def update_buttons(self):
         for idx in range(0, len(self.game.frac_list)):
             print("Updating bag-{}.".format(idx))
-            bag_label = Gtk.Label("[{index}] {val}".format(index=idx, val=self.game.frac_list[idx]))
+            bag_label = Gtk.Label(self.get_bag_label(idx, self.game.frac_list[idx]))
             bag_value = idx
             self.buttons[bag_label].set_label(bag_label)
             self.buttons[bag_label].connect("clicked", self.on_bag_select, bag_value)
@@ -195,6 +196,9 @@ class WAMMinigame:
     def update_remaining(self):
         self.labels["bags"].set_text("Bags: {}".format(self.game.frac_list))
         self.labels["remaining"].set_text("There are {} bag(s) left!".format(self.game.num_over))
+
+    def get_bag_label(self, idx, value):
+        return "[{index}] {val}".format(index=idx, val=value)
 
     def done(self, _):
         self.return_start.set()
