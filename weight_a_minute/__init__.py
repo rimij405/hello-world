@@ -5,6 +5,7 @@ Module containing code for the WAMMinigame.
 import threading
 
 from gi.repository import Gtk
+from minigame_wam import WAMMinigameModel
 
 class WAMMinigame:
     def __init__(self):
@@ -13,6 +14,7 @@ class WAMMinigame:
         in get_panel -- you can still set properties on `self` in any method.
         """
         self.score = 0
+        self.model = WAMMinigameModel()
         self.return_start = threading.Event()
 
     def get_name(self):
