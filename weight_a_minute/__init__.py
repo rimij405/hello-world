@@ -49,7 +49,7 @@ class WAMMinigame:
         self.minigame_label = Gtk.Label("Weight a Minute!")
 
         # Add widgets.
-        panel.add(minigame_label)
+        panel.add(self.minigame_label)
 
         """
         
