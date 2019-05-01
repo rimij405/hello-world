@@ -14,11 +14,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-"""HelloWorld Activity: A case study for developing an activity."""
+"""MainMenuActivity: The main menu of the game app."""
 
 import threading
 
-# Import the GTK libraires.
+# Import and set up the GTK libraires.
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -40,15 +40,11 @@ from weight_a_minute import WAMMinigame
 MINIGAMES = [
     WAMMinigame(),
     DemoMinigame(),
-    DemoMinigame(),
-    DemoMinigame(),
-    DemoMinigame(),
-    WAMMinigame(),
 ]
 
-class HelloWorldActivity(activity.Activity):
+class MainMenuActivity(activity.Activity):
     def __init__(self, handle):
-        """Set up the HelloWorld activity."""
+        """Set up the activity."""
         activity.Activity.__init__(self, handle)
 
         # we do not have collaboration features
@@ -87,7 +83,6 @@ class HelloWorldActivity(activity.Activity):
         self.set_toolbar_box(toolbar_box)
         toolbar_box.show()
 
-        # label with the text, make the string translatable
         self.display_menu()
 
     def display_menu(self):
