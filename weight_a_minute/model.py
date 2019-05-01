@@ -46,6 +46,9 @@ class WAMGameModel:
             return self.gtk_widget.get(widgetId, None)
         return None
 
+    def decrement_score(self):
+        self.score -= 1
+
     def increment_score(self):
         self.score += 1
 
