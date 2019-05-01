@@ -43,8 +43,12 @@ def makecase(filename, color, frac):
     dir_string = "cases/" + filename
     suitcase.save(dir_string, "PNG")
 
+
+"""
+Clears the current set of images generated
+"""
 def clear():
-    os.rmtree("cases")
+    os.rmtree("/cases")
 
 
 fract_test = f.Fraction(30, 40)
