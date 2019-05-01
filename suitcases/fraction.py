@@ -9,10 +9,11 @@ class Fraction:
     denominator -- denominatorof the fraction
     """
     def __init__(self, numerator, denominator):
-        print("Creating fraction: {n} / {d} ({v})".format(n=numerator, d=denominator, v=(str(float(numerator / denominator)))))
         self.numerator = numerator
         self.denominator = denominator
-        self.value = float(numerator / denominator)
+        self.value = numerator / denominator
+        print("Creating fraction: {n} / {d} ({v})".format(n=self.numerator, d=self.denominator, v=self.value))
+        
 
     def __str__(self):
         frac_str = str(self.numerator) + "/" + str(self.denominator)
