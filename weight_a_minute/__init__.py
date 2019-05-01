@@ -48,9 +48,9 @@ class WAMMinigame:
         bottom_panel.add(Gtk.Label("Bottom."))
 
         # Add widgets.
-        panel.add(top_panel)
-        panel.add(separator)
-        panel.add(bottom_panel)
+        panel.attach(top_panel, 0, 1, 1, 1)
+        panel.attach(separator, 0, 0, 1, 1)
+        panel.attach(bottom_panel, 1, 1, 1, 1)
 
         """
         
