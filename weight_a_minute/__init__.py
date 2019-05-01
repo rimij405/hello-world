@@ -70,17 +70,24 @@ class WAMMinigame:
         top_row.add(self.labels["score"])
 
         # Add buttons to the top row.
-        top_row.add(self.buttons["quit"])
+        top_row.add(self.buttons["quit"])        
+
+        # Create the middle row.
+        middle_row = Gtk.Grid()
+        middle_row.set_column_spacing(20)
+        middle_row.set_row_spacing(20)
+        
+        # Create labels.
+        middle_row.add(self.labels["weight-limit"])
+        middle_row.add(self.labels["bags"])
+        middle_row.add(self.labels["remaining"])
 
         # Create the bottom row.
         bottom_row = Gtk.Grid()
         bottom_row.set_column_spacing(20)
         bottom_row.set_row_spacing(20)
 
-        # Create labels.
-        bottom_row.add(self.labels["weight-limit"])
-        bottom_row.add(self.labels["bags"])
-        bottom_row.add(self.labels["remaining"])
+        # Create the labels.
         bottom_row.add(self.labels["result"])
 
         # Create the buttons.        
@@ -93,8 +100,8 @@ class WAMMinigame:
         panel.attach(score_btn, 0, 1, 1, 1)
         """
 
-        panel.attach(top_row, 0, 0, 4, 1)
-        panel.attach_next_to(bottom_row, top_row, Gtk.PositionType.BOTTOM, 4, 1)
+        panel.attach(top_row, 0, 0, 1, 1)
+        panel.attach_next_to(bottom_row, top_row, Gtk.PositionType.BOTTOM, 1, 1)
         return panel
 
     def start(self, panel):
