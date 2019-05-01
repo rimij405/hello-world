@@ -5,6 +5,7 @@ Module containing code for the WAMMinigame.
 import threading
 
 from gi.repository import Gtk
+from suitcases import fraction
 from weight_a_minute import model
 
 class WAMMinigame:
@@ -13,8 +14,7 @@ class WAMMinigame:
         Initialize state variables, etc. GUI elements should be initialized
         in get_panel -- you can still set properties on `self` in any method.
         """
-        self.score = 0
-        self.fgame = model.WAMGameModel()
+        self.game = model.WAMGameModel()
         self.return_start = threading.Event()
 
     def get_name(self):
@@ -46,28 +46,48 @@ class WAMMinigame:
         panel.set_column_spacing(10)
         panel.set_row_spacing(10)
         """
-
         # Create labels.
         self.create_labels()
+
+        # Create the buttons.
         self.create_buttons()
-        
-        # Add labels to the panel.    
-        panel.add(self.labels["minigame"])
-        panel.add(self.labels["instructions"])
-        panel.add(self.labels["score"])
-        panel.add(self.buttons["quit"])
+
+        # Create the top row.
+        top_row = Gtk.Grid()
+        top_row.set_column_spacing(20)
+        top_row.set_row_spacing(20)
+
+        # Add labels to the top row.    
+        top_row.add(self.labels["minigame"])
+        top_row.add(self.labels["instructions"])
+        top_row.add(self.labels["score"])
+
+        # Add buttons to the top row.
+        top_row.add(self.buttons["quit"])
+
+        # Create the bottom row.
+        bottom_row = Gtk.Grid()
+        bottom_row.set_column_spacing(20)
+        bottom_row.set_row_spacing(20)
+
+        # Create labels.
+        bottom_row.add(self.labels["weight-limit"])
+        bottom_row.add(self.labels["bags"])
+        bottom_row.add(self.labels["remaining"])
+        bottom_row.add(self.labels["result"])
+
+        # Create the buttons.        
+        for idx in range(0, len(self.game.frac_list)):
+            bottom_row.add(self.buttons["bag-{}".format(idx)])
 
         """        
         score_btn = Gtk.Button.new_with_label("Increase scores")
         score_btn.connect("clicked", self.score_up)
         panel.attach(score_btn, 0, 1, 1, 1)
-        self.score_lbl = Gtk.Label("Increase your scores!")
-        panel.attach(self.score_lbl, 0, 2, 1, 1)
-        quit_btn = Gtk.Button.new_with_label("Quit!")
-        quit_btn.connect("clicked", self.done)
-        panel.attach(quit_btn, 0, 3, 1, 1)
         """
 
+        panel.attach(top_row, 0, 0, 4, 1)
+        panel.attach_next_to(bottom_row, top_row, Gtk.PositionType.BOTTOM, 4, 1)
         return panel
 
     def start(self, panel):
@@ -81,13 +101,8 @@ class WAMMinigame:
         self.return_start.clear()
         self.return_start.wait()
 
-    def score_up(self, _):
-        self.score += 1
-        # self.score_lbl.set_text(str(self.score))
-
-    def increment_score(self, _):
-        self.score += 1
-        self.labels["score"].set_text("Score: {}".format(str(self.score)))
+    def update_score(self, _):
+        self.labels["score"].set_text("Score: {}".format(str(self.game.score)))
 
     def create_labels(self):
         print("Create labels for game.")
@@ -95,7 +110,12 @@ class WAMMinigame:
 
         self.labels["minigame"] = Gtk.Label("Weight a Minute!")
         self.labels["instructions"] = Gtk.Label("Select all the fractions that are over the weight limit!")
-        self.labels["score"] = Gtk.Label("Score: {}".format(str(self.score)))
+        self.labels["score"] = Gtk.Label("Score: {}".format(str(self.game.score)))
+
+        self.labels["weight-limit"] = Gtk.Label("Weight Limit: {}".format(self.game.base_frac))
+        self.labels["bags"] = Gtk.Label("Bags: {}".format(self.game.frac_list))
+        self.labels["remaining"] = Gtk.Label("There are {} bag(s) left!".format(self.game.num_over))
+        self.labels["result"] = Gtk.Label("")
 
         return self.labels
 
@@ -107,8 +127,31 @@ class WAMMinigame:
         btn_quit.connect("clicked", self.done)
         self.buttons["quit"] = btn_quit
 
+        # Create one button for each fraction in fraction list.
+        def create_fraction_button(label):
+            btn = Gtk.Button.new_with_label("Bag: {}".format(label))
+            return btn
+
+        for idx in range(0, len(self.game.frac_list)):
+            print("Creating bag-{}.".format(idx))
+            bag_label = "bag-{}".format(idx)
+            bag_value = idx
+            bag_btn = create_fraction_button(bag_label)
+            bag_btn.connect("clicked", self.on_bag_select, bag_value)
+            self.buttons[bag_label] = bag_btn
+
         return self.buttons
 
+    def on_bag_select(self, value):
+        print("Selected bag with {}".format(value))
+        check = self.game.check_bag(int(value))
+        if(check == 0):
+            self.game.result = "Nice one! Bag {} is over the weight limit!".format(value)
+        if(check == -1):
+            self.game.result = "Try again, that bag isn't over the weight limit."
+        if(check == 1):
+            self.game.result = "Congratulations! You've found all of the bags! Quit to the main menu and return here to play again."
+        self.labels["result"].set_text(self.game.result)
 
     def done(self, _):
         self.return_start.set()

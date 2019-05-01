@@ -10,6 +10,8 @@ class WAMGameModel:
     def __init__(self):
         print("Initializing the game model.")
         r.seed()
+        self.score = 0
+        self.result = ""
         self.gtk_widget = {}
 
     def start_game(self):
@@ -40,3 +42,9 @@ class WAMGameModel:
         if widgetId is not None and type(widgetId) == str and len(widgetId) > 0:
             return self.gtk_widget.get(widgetId, None)
         return None
+
+    def increment_score(self):
+        self.score += 1
+
+    def reset_score(self):
+        self.score = 0
