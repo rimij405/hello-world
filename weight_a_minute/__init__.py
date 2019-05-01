@@ -33,8 +33,12 @@ class WAMMinigame:
         This panel is shown with show_all, so you don't need to manually call
         .show() on every child element.
         """
-        panel = Gtk.Grid()
-        
+        # panel = Gtk.Grid()
+        panel = Gtk.Window()
+        panel.connect("destroy", Gtk.main_quit)
+        panel.show_all()
+        Gtk.main()
+
         panel.attach(Gtk.Label("WAM"), 0, 0, 1, 1)
         score_btn = Gtk.Button.new_with_label("Increase scores")
         score_btn.connect("clicked", self.score_up)
