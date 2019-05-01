@@ -95,7 +95,7 @@ class WAMMinigame:
             if(idx == 0):
                 bottom_row.add(self.buttons["bag-{}".format(idx)])
             else:
-                bottom_row.attach_next_to(self.buttons["bag-{}".format(idx)], self.buttons["bag-{}".format(idx - 1)], Gtk.PositionType.Bottom, 1, 1)
+                bottom_row.attach_next_to(self.buttons["bag-{}".format(idx)], self.buttons["bag-{}".format(idx - 1)], Gtk.PositionType.BOTTOM, 1, 1)
 
         """        
         score_btn = Gtk.Button.new_with_label("Increase scores")
