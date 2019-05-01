@@ -3,7 +3,6 @@ This class is supposed to hold game logic for fractions to be used in several
 suitcase minigames.
 """
 import random as rand
-import math
 import fraction as f
 
 __author__= "jks7743"
@@ -24,10 +23,24 @@ def generate_base_frac(max_value_num, max_value_den):
     return frac
 
 """
+Calculate GCD
+"""
+def gcd(x, y):
+    if x > y:
+        small = y 
+    else: 
+        small = x 
+    for i in range(1, small+1): 
+        if((x % i == 0) and (y % i == 0)): 
+            gcd = i 
+              
+    return gcd
+
+"""
 Simplifies fractions
 """
 def simplify(fraction):
-    divisor = math.gcd(fraction.numerator, fraction.denominator)
+    divisor = gcd(fraction.numerator, fraction.denominator)
     return f.Fraction(int(fraction.numerator / divisor), int(fraction.denominator / divisor))
 
 """
