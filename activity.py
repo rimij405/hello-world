@@ -22,6 +22,7 @@ import threading
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+import random as r
 
 # Import the sugar activity materials.
 from sugar3.activity import activity
@@ -36,9 +37,12 @@ from sugar3.activity.widgets import DescriptionItem
 from demo_minigame import DemoMinigame
 from weight_a_minute import WAMMinigame
 
+# Seed random.
+r.seed()
+
 # List of mini-games to create.
 MINIGAMES = [
-    WAMMinigame(),
+    WAMMinigame(r),
     DemoMinigame(),
 ]
 

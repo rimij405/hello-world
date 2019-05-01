@@ -4,12 +4,12 @@ Represents the game model and keeps track of state.
 
 from suitcases import fraction as f
 from suitcases import generate_fractions as gfrac
-import random as r
+import random
 
 class WAMGameModel:
-    def __init__(self):
+    def __init__(self, r):
         print("Initializing the game model.")
-        r.seed()
+        self.r = r
         self.score = 0
         self.result = ""
         self.gtk_widget = {}
@@ -17,7 +17,7 @@ class WAMGameModel:
     def start_game(self):
         print("Start of the game.")
         self.base_frac = gfrac.generate_base_frac(10, 4)
-        self.num_over = r.randint(2, 5)
+        self.num_over = self.r.randint(2, 5)
         self.frac_list = gfrac.generate_fracs(self.base_frac, 7 - self.num_over, self.num_over, 1, 16, 30)
 
     def check_bag(self, index):

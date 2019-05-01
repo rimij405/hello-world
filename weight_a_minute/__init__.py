@@ -7,14 +7,15 @@ import threading
 from gi.repository import Gtk
 from suitcases import fraction
 from weight_a_minute import model
+import random
 
 class WAMMinigame:
-    def __init__(self):
+    def __init__(self, r):
         """
         Initialize state variables, etc. GUI elements should be initialized
         in get_panel -- you can still set properties on `self` in any method.
         """
-        self.game = model.WAMGameModel()
+        self.game = model.WAMGameModel(r)
         self.return_start = threading.Event()
 
         # Start the game.
@@ -36,6 +37,8 @@ class WAMMinigame:
         This panel is shown with show_all, so you don't need to manually call
         .show() on every child element.
         """
+        print("Creating the game UI.")
+
         # Create the main Grid.
         panel = Gtk.Grid()
         panel.set_column_spacing(20)
