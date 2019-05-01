@@ -119,6 +119,7 @@ class WAMMinigame:
         """ 
         # Start the game.
         self.game.start_game()
+        self.game.reset_score()
         self.return_start.clear()
         self.return_start.wait()
 
