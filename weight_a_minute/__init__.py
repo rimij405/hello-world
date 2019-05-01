@@ -154,7 +154,7 @@ class WAMMinigame:
 
         for idx in range(0, len(self.game.frac_list)):
             print("Creating bag-{}.".format(idx))
-            bag_label = "bag-{}".format(idx)
+            bag_label = "{}".format(self.game.frac_list[idx]
             bag_value = idx
             bag_btn = create_fraction_button(bag_label)
             bag_btn.connect("clicked", self.on_bag_select, bag_value)
@@ -165,27 +165,28 @@ class WAMMinigame:
     def update_buttons(self):
         for idx in range(0, len(self.game.frac_list)):
             print("Updating bag-{}.".format(idx))
-            bag_label = Gtk.Label("bag-{}".format(idx))
+            bag_label = Gtk.Label("{}".format(self.game.frac_list[idx]))
             bag_value = idx
             self.buttons[bag_label].set_label(bag_label)
             self.buttons[bag_label].connect("clicked", self.on_bag_select, bag_value)
 
     def on_bag_select(self, _, value):
-        print("Selected bag with {}".format(value))
-        check = self.game.check_bag(int(value))
-        if(check == 0):
-            self.game.result = "Nice one! Bag {} is over the weight limit!".format(value)
-            _.set_sensitive(False)
-            self.update_buttons()
-            self.game.increment_score()
-        if(check == -1):
-            self.game.result = "Try again, that bag isn't over the weight limit."            
-            self.game.decrement_score()
-        if(check == 1):
-            self.game.result = "Congratulations! You've found all of the bags!\nQuit to the main menu and return here to play again."
-            self.game.increment_score()
-        self.update_result()
-        self.update_remaining()
+        if self.game.complete is False:
+            print("Selected bag with {}".format(value))
+            check = self.game.check_bag(int(value))
+            if(check == 0):
+                self.game.result = "Nice one! Bag {} is over the weight limit!".format(value)
+                _.set_sensitive(False)
+                self.update_buttons()
+                self.game.increment_score()
+            if(check == -1):
+                self.game.result = "Try again, that bag isn't over the weight limit."            
+                self.game.decrement_score()
+            if(check == 1):
+                self.game.result = "Congratulations! You've found all of the bags!\nQuit to the main menu and return here to play again."
+                self.game.increment_score()
+            self.update_result()
+            self.update_remaining()
 
     def update_result(self):
         self.labels["result"].set_text(self.game.result)  

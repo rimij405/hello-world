@@ -14,6 +14,7 @@ class WAMGameModel:
         self.result = ""
         self.gtk_widget = {}
         self.initialized = False
+        self.complete = False
 
     def start_game(self):
         if(not self.initialized):
@@ -30,6 +31,7 @@ class WAMGameModel:
                 self.frac_list.pop(index)
                 self.num_over -= 1
                 if self.num_over == 0:
+                    self.complete = True
                     return 1
                 return 0
         return -1
