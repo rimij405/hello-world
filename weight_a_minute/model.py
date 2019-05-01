@@ -28,6 +28,7 @@ class WAMGameModel:
         print("Checking bag at index {idx}".format(idx=index))
         if index >= 0 and index < len(self.frac_list):
             if self.base_frac.compare(self.frac_list[index]) == -1:
+                print("Removing fraction from the list.")
                 self.frac_list.pop(index)
                 self.num_over -= 1
                 if self.num_over == 0:

@@ -179,14 +179,14 @@ class WAMMinigame:
             if(check == 0):
                 self.game.result = "Nice one! Bag {} is over the weight limit!".format(value)
                 _.set_sensitive(False)
-                self.update_buttons()
                 self.game.increment_score()
             if(check == -1):
                 self.game.result = "Try again, that bag isn't over the weight limit."            
                 self.game.decrement_score()
             if(check == 1):
                 self.game.result = "Congratulations! You've found all of the bags!\nQuit to the main menu and return here to play again."
-                self.game.increment_score()
+                self.game.increment_score()                
+            self.update_buttons()
             self.update_result()
             self.update_remaining()
 
