@@ -92,7 +92,10 @@ class WAMMinigame:
 
         # Create the buttons.        
         for idx in range(0, len(self.game.frac_list)):
-            bottom_row.add(self.buttons["bag-{}".format(idx)])
+            if(idx == 0):
+                bottom_row.add(self.buttons["bag-{}".format(idx)])
+            else:
+                bottom_row.attach_next_to(self.buttons["bag-{}".format(idx)], self.buttons["bag-{}".format(idx - 1)], Gtk.PositionType.Bottom, 1, 1)
 
         """        
         score_btn = Gtk.Button.new_with_label("Increase scores")
@@ -101,7 +104,8 @@ class WAMMinigame:
         """
 
         panel.attach(top_row, 0, 0, 1, 1)
-        panel.attach_next_to(bottom_row, top_row, Gtk.PositionType.BOTTOM, 1, 1)
+        panel.attach_next_to(middle_row, top_row, Gtk.PositionType.BOTTOM, 1, 1)
+        panel.attach_next_to(bottom_row, middle_row, Gtk.PositionType.BOTTOM, 1, 1)
         return panel
 
     def start(self, panel):
