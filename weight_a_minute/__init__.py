@@ -36,28 +36,20 @@ class WAMMinigame:
         # Create the main Grid.
         panel = Gtk.Grid()
 
+        """
         panel.set_margin_left(10)
         panel.set_margin_right(10)
         panel.set_margin_bottom(10)
         panel.set_margin_top(10)
         panel.set_column_spacing(10)
         panel.set_row_spacing(10)
+        """
 
-        # Create the top level widgets.
-        top_panel = Gtk.Box()
-        top_panel.add(Gtk.Label("Top."))
-
-        # Create the separator.
-        separator = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
-
-        # Create the bottom level widgets.
-        bottom_panel = Gtk.Box()
-        bottom_panel.add(Gtk.Label("Bottom."))
+        # Create widgets.
+        self.minigame_label = Gtk.Label("Weight a Minute!")
 
         # Add widgets.
-        panel.attach(top_panel, 0, 1, 1, 1)
-        panel.attach(separator, 0, 0, 1, 1)
-        panel.attach(bottom_panel, 1, 1, 1, 1)
+        panel.add(minigame_label)
 
         """
         
