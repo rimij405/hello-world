@@ -15,6 +15,7 @@ class WAMMinigame:
         Initialize state variables, etc. GUI elements should be initialized
         in get_panel -- you can still set properties on `self` in any method.
         """
+        self.r = r
         self.game = model.WAMGameModel(r)
         self.return_start = threading.Event()
 
@@ -35,7 +36,7 @@ class WAMMinigame:
         .show() on every child element.
         """
 
-        if(not self.game.initialized):
+        if(self.game is None or not self.game.initialized):
             self.game.start_game()
 
         print("Creating the game UI.")
@@ -210,5 +211,6 @@ class WAMMinigame:
     def done(self, _):
         self.game.initialized = False
         self.game.reset_score()
+        self.game = model.WAMGameModel(self.r)
         self.return_start.set()
 
