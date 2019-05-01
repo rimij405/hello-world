@@ -7,7 +7,7 @@ class FractionGameModel:
         rand.seed()
 
     def start_game(self):
-        self.base_frac = gfrac.generate_base_frac(4, 10)
+        self.base_frac = gfrac.generate_base_frac(10, 4)
         self.num_over = rand.randint(2, 5)
         self.frac_list = gfrac.generate_fracs(self.base_frac, 7 - self.num_over, self.num_over, 1, 16, 30)
 
