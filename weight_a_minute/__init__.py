@@ -32,6 +32,17 @@ class WAMMinigame:
         .show() on every child element.
         """
         panel = Gtk.Grid()
+        
+        panel.attach(Gtk.Label("WAM"), 0, 0, 1, 1)
+        score_btn = Gtk.Button.new_with_label("Increase scores")
+        score_btn.connect("clicked", self.score_up)
+        panel.attach(score_btn, 0, 1, 1, 1)
+        self.score_lbl = Gtk.Label("Increase your scores!")
+        panel.attach(self.score_lbl, 0, 2, 1, 1)
+        quit_btn = Gtk.Button.new_with_label("Quit!")
+        quit_btn.connect("clicked", self.done)
+        panel.attach(quit_btn, 0, 3, 1, 1)
+
         return panel
 
     def start(self, panel):
@@ -41,10 +52,13 @@ class WAMMinigame:
         
         Takes the panel returned by get_panel(), after it's been slotted into
         the GUI.
-        """
-        
+        """        
         self.return_start.clear()
         self.return_start.wait()
+
+    def score_up(self, _):
+        self.score += 1
+        self.score_lbl.set_text(str(self.score))
 
     def done(self, _):
         self.return_start.set()
