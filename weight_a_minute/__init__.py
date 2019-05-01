@@ -34,6 +34,10 @@ class WAMMinigame:
         This panel is shown with show_all, so you don't need to manually call
         .show() on every child element.
         """
+
+        if(not self.game.initialized):
+            self.game.start_game()
+
         print("Creating the game UI.")
 
         # Create the main Grid.

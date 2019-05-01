@@ -13,12 +13,15 @@ class WAMGameModel:
         self.score = 0
         self.result = ""
         self.gtk_widget = {}
+        self.initialized = False
 
     def start_game(self):
-        print("Start of the game.")
-        self.base_frac = gfrac.generate_base_frac(10, 4)
-        self.num_over = self.r.randint(2, 5)
-        self.frac_list = gfrac.generate_fracs(self.base_frac, 7 - self.num_over, self.num_over, 1, 16, 30)
+        if(not self.initialized):
+            print("Start of the game.")
+            self.base_frac = gfrac.generate_base_frac(10, 4)
+            self.num_over = self.r.randint(2, 5)
+            self.frac_list = gfrac.generate_fracs(self.base_frac, 7 - self.num_over, self.num_over, 1, 16, 30)
+            self.initialized = True
 
     def check_bag(self, index):
         print("Checking bag at index {idx}".format(idx=index))
