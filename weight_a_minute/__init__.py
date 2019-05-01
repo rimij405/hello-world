@@ -162,12 +162,21 @@ class WAMMinigame:
 
         return self.buttons
 
+    def update_buttons(self):
+        for idx in range(0, len(self.game.frac_list)):
+            print("Updating bag-{}.".format(idx))
+            bag_label = Gtk.Label("bag-{}".format(idx))
+            bag_value = idx
+            self.buttons[bag_label].set_label(bag_label)
+            self.buttons[bag_label].connect("clicked", self.on_bag_select, bag_value)
+
     def on_bag_select(self, _, value):
         print("Selected bag with {}".format(value))
         check = self.game.check_bag(int(value))
         if(check == 0):
             self.game.result = "Nice one! Bag {} is over the weight limit!".format(value)
             _.set_sensitive(False)
+            self.update_buttons()
             self.game.increment_score()
         if(check == -1):
             self.game.result = "Try again, that bag isn't over the weight limit."            
