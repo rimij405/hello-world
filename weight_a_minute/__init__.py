@@ -175,11 +175,11 @@ class WAMMinigame:
     def on_bag_select(self, _, value):
         if self.game.complete is False:
             print("Selected bag with {}".format(value))
+            disable = False
             check = self.game.check_bag(int(value))
             if(check == 0):
                 self.game.result = "Nice one! Bag {} is over the weight limit!".format(value)
-                _.set_sensitive(False)                         
-                self.update_buttons()
+                disable = True    
                 self.game.increment_score()
             if(check == -1):
                 self.game.result = "Try again, that bag isn't over the weight limit."            
@@ -189,6 +189,12 @@ class WAMMinigame:
                 self.game.increment_score()       
             self.update_result()
             self.update_remaining()
+
+            if disable is True:       
+                disable = False
+                self.update_buttons()
+                _.set_sensitive(False)
+
 
     def update_result(self):
         self.labels["result"].set_text(self.game.result)  
