@@ -104,11 +104,7 @@ class HelloWorldActivity(activity.Activity):
 
         # Create the buttons for each mini game.
         for idx, mg in enumerate(MINIGAMES):
-            game = self
-            print("Creating button {btnID} for {mgID}".format(btnID=str(idx), mgID=mg.get_name()))
-            btn = Gtk.Button.new_with_label(mg.get_name())
-            btn.connect("clicked", lambda _: game.run_minigame(mg)) # lambda _: self.run_minigame(mg))
-            grid.attach(btn, idx % 3, 1 + idx / 3, 1, 1)
+            grid.attach(self.make_button(idx, mg), idx % 3, 1 + idx / 3, 1, 1)
 
         # Set the spacing for the grid.
         grid.set_margin_left(10)
@@ -122,16 +118,25 @@ class HelloWorldActivity(activity.Activity):
         self.set_canvas(grid)
         grid.show_all()
 
+    def make_button(self, idx, mg):
+        print("Creating button {id} for {mgn}".format(id=str(idx), mgn=mg.get_name()))
+        btn = Gtk.Button.new_with_label(mg.get_name())
+        btn.connect("clicked", lambda _: self.run_minigame(mg))
+        return btn
+
     def run_minigame(self, mg):
         """Start the mini game that was selected."""
+        print("Getting the panel for minigame '{mgn}'".format(mgn=mg.get_name()))
         cv = mg.get_panel()
         self.set_canvas(cv)
         cv.show_all()
         
         def runner():
+            print("Running minigame '{mgn}'".format(mgn=mg.get_name()))
             mg.start(cv)
             # start only completes when the minigame is done
             self.display_menu()
 
+        print("Starting thread for minigame '{mgn}'".format(mgn=mg.get_name()))
         threading.Thread(target=runner).start()
 
