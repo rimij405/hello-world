@@ -5,10 +5,17 @@ import fraction as f
 import os
 
 """
-Set of functions that are used to generate and manage suitcase images for use in baggage claim
+Set of functions that are used to generate and manage suitcase images for use in baggage claim.
 """
 __author__ = "jks743"
 
+"""
+Generates a suitcase image of a given color fraction and makes the file in a /cases directory in a
+png file of the given name.
+filename    -- name of the file
+color       -- color of the suitcase
+frac        -- fraction to print on the suitcase
+"""
 def makecase(filename, color, frac):
     suitcase = Image.open('suitcase.png')
     if not os.path.exists('cases'):
@@ -18,7 +25,7 @@ def makecase(filename, color, frac):
 
     new_data = []
 
-# here we're replacing white wit hour given color
+# replacing white in the default suitcase with theS given color
     for item in suit_data:
         if item[0] == 255 and item[1] == 255 and item[2] == 255:
             new_data.append(color)
@@ -35,21 +42,18 @@ def makecase(filename, color, frac):
     # chosen text size of 60
     font = ImageFont.truetype("TruenoSBd.otf", size=60)
 
-    # calculation to findthe appropriate place to put our text
+    # calculation to find the appropriate place to put our text
     suitcase_draw.text((233 - (20 * (len(numerator) - 1)), 200),numerator,fill='black', font=font)
 
     suitcase_draw.text((233 - (20 * (len(denominator) - 1)), 275),denominator,fill='black', font=font)
     # make our image file
     dir_string = "cases/" + filename
     suitcase.save(dir_string, "PNG")
+    return dir_string
 
 
 """
-Clears the current set of images generated
+Clears the current set of images generated, including the directory.
 """
 def clear():
     os.rmtree("/cases")
-
-
-fract_test = f.Fraction(30, 40)
-makecase("blah.png", (255,0,0,255), fract_test)
