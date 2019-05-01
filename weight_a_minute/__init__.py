@@ -17,6 +17,9 @@ class WAMMinigame:
         self.game = model.WAMGameModel()
         self.return_start = threading.Event()
 
+        # Start the game.
+        self.game.start_game()
+
     def get_name(self):
         """
         This is the name of the app, as displayed in the main menu.
