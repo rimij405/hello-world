@@ -18,9 +18,6 @@ class WAMMinigame:
         self.game = model.WAMGameModel(r)
         self.return_start = threading.Event()
 
-        # Start the game.
-        self.game.start_game()
-
     def get_name(self):
         """
         This is the name of the app, as displayed in the main menu.
@@ -103,7 +100,9 @@ class WAMMinigame:
         
         Takes the panel returned by get_panel(), after it's been slotted into
         the GUI.
-        """        
+        """ 
+        # Start the game.
+        self.game.start_game()
         self.return_start.clear()
         self.return_start.wait()
 
