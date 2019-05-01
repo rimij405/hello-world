@@ -36,7 +36,7 @@ class WAMGameModel:
         return None
 
     def get_widget(self, widgetId):        
-        print("Getting widget {wid}".format(wid=widgetId)
+        print("Getting widget {wid}".format(wid=widgetId))
         if widgetId is not None and type(widgetId) == str and len(widgetId) > 0:
             return self.gtk_widget.get(widgetId, None)
         return None
