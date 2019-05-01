@@ -162,12 +162,12 @@ class WAMMinigame:
 
         return self.buttons
 
-    def on_bag_select(self, *args):
-        value = args[1]
+    def on_bag_select(self, _, value):
         print("Selected bag with {}".format(value))
         check = self.game.check_bag(int(value))
         if(check == 0):
             self.game.result = "Nice one! Bag {} is over the weight limit!".format(value)
+            _.set_sensitive(False)
         if(check == -1):
             self.game.result = "Try again, that bag isn't over the weight limit."
         if(check == 1):
