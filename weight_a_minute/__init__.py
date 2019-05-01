@@ -154,7 +154,7 @@ class WAMMinigame:
 
         for idx in range(0, len(self.game.frac_list)):
             print("Creating bag-{}.".format(idx))
-            bag_label = "{}".format(self.game.frac_list[idx]
+            bag_label = "[{index}] {val}".format(index=idx, val=self.game.frac_list[idx])
             bag_value = idx
             bag_btn = create_fraction_button(bag_label)
             bag_btn.connect("clicked", self.on_bag_select, bag_value)
@@ -165,7 +165,7 @@ class WAMMinigame:
     def update_buttons(self):
         for idx in range(0, len(self.game.frac_list)):
             print("Updating bag-{}.".format(idx))
-            bag_label = Gtk.Label("{}".format(self.game.frac_list[idx]))
+            bag_label = Gtk.Label("[{index}] {val}".format(index=idx, val=self.game.frac_list[idx]))
             bag_value = idx
             self.buttons[bag_label].set_label(bag_label)
             self.buttons[bag_label].connect("clicked", self.on_bag_select, bag_value)
