@@ -33,15 +33,24 @@ class WAMMinigame:
         This panel is shown with show_all, so you don't need to manually call
         .show() on every child element.
         """
-        # panel = Gtk.Grid()
-        panel = self.model.get_window()
-        
-        # Add items to the window.
-        panel.add(Gtk.Label("WAM"))
-        
-        panel.show_all()
-        Gtk.main()
-        
+        # Create the main Grid.
+        panel = Gtk.Grid()
+
+        # Create the top level widgets.
+        top_panel = Gtk.Box()
+        top_panel.add(Gtk.Label("Top."))
+
+        # Create the separator.
+        separator = Gtk.Separator(Gtk.Orientation.HORIZONTAL)
+
+        # Create the bottom level widgets.
+        bottom_panel = Gtk.Box()
+        bottom_panel.add(Gtk.Label("Bottom."))
+
+        # Add widgets.
+        panel.add(top_panel)
+        panel.add(separator)
+        panel.add(bottom_panel)
 
         """
         
