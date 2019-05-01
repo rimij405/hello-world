@@ -179,7 +179,8 @@ class WAMMinigame:
         self.update_remaining()
 
     def update_result(self):
-        self.labels["result"].set_text(self.game.result)
+        self.labels["result"].set_text(self.game.result)  
+        self.labels["score"].set_text("Score: {}".format(str(self.game.score)))
 
     def update_remaining(self):
         self.labels["bags"].set_text("Bags: {}".format(self.game.frac_list))
