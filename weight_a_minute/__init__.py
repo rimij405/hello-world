@@ -5,7 +5,6 @@ Module containing code for the WAMMinigame.
 import threading
 
 from gi.repository import Gtk
-from minigame_wam import WAMMinigameModel
 
 class WAMMinigame:
     def __init__(self):
@@ -14,7 +13,7 @@ class WAMMinigame:
         in get_panel -- you can still set properties on `self` in any method.
         """
         self.score = 0
-        self.model = WAMMinigameModel()
+        self.state = None
         self.return_start = threading.Event()
 
     def get_name(self):
@@ -35,6 +34,8 @@ class WAMMinigame:
         """
         # Create the main Grid.
         panel = Gtk.Grid()
+        panel.set_column_spacing(20)
+        panel.set_row_spacing(20)
 
         """
         panel.set_margin_left(10)
@@ -46,11 +47,19 @@ class WAMMinigame:
         """
 
         # Create widgets.
-        self.minigame_label = Gtk.Label("Weight a Minute!")
-        self.minigame_label.set_hexpand(True)
+        self.minigame_label = Gtk.Label("Weight a minute!")
+        self.state_label = Gtk.Label("Current state: {st}".format(st=self.state))
+        
+        self.state_button = Gtk.Button(label="Change State!")
+        self.state_button.connect("clicked", self.on_change_state_btn)
+
+        # self.prompt_label = Gtk.Label("Compare the generated fractions!")
 
         # Add widgets.
-        panel.add(self.minigame_label, 0, 0, 1, 1)
+        panel.attach(self.minigame_label, 0, 0, 1, 1)
+        panel.attach_next_to(self.state_label, self.minigame_label, Gtk.PositionType.BOTTOM, 1, 1)
+        panel.add(self.state_button)
+        # panel.attach()
 
         """
         
@@ -79,7 +88,17 @@ class WAMMinigame:
 
     def score_up(self, _):
         self.score += 1
-        self.score_lbl.set_text(str(self.score))
+        # self.score_lbl.set_text(str(self.score))
+
+    def update_state(self):
+        self.state_label.set_text(self.state)
+
+    def on_change_state_btn(self, _):
+        if self.state is None:
+            self.state = "Start"
+        elif self.state == "Start":
+            self.state = "End"
+        self.update_state()
 
     def done(self, _):
         self.return_start.set()
