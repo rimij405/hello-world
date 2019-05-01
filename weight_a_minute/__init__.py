@@ -192,8 +192,8 @@ class WAMMinigame:
 
             if disable is True:       
                 disable = False
-                self.update_buttons()
                 _.set_sensitive(False)
+                self.update_buttons()
 
 
     def update_result(self):
