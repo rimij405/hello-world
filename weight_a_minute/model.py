@@ -54,7 +54,7 @@ class WAMGameModel:
         self.score -= 1
 
     def increment_score(self):
-        self.score += 1
+        self.score += 5
 
     def reset_score(self):
         self.score = 0
